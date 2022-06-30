@@ -18,7 +18,11 @@
                     <h4>{{ post.title }}</h4>
                     <p v-if="post.content.length > 100">
                       {{ post.content.substring(0, 100) + "[...]" }}
-                      <router-link class="btn btn-primary" :to="{name: 'post',params: {slug: post.slug}}">Read More</router-link>
+                      <router-link
+                        class="btn btn-primary"
+                        :to="{ name: 'post', params: { slug: post.slug } }"
+                        >Read More</router-link
+                      >
                     </p>
                     <p v-else>{{ post.content }}</p>
                   </div>
@@ -134,5 +138,10 @@ export default {
 };
 </script>
 
-<style>
+<style style lang="scss" scoped>
+.card {
+  img {
+    aspect-ratio: 1 / 1;
+  }
+}
 </style>

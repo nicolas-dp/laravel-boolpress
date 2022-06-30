@@ -1,34 +1,28 @@
 <template>
-  <div class="single-page">
+   <div class="single_page h-100">
     <div class="wrapper h-100" v-if="!loading">
-      <div
-        class="p-5 hero_image"
-        :style="{ backgroundImage: 'url(/storage/' + post.image + ')' }"
-      >
+      <div class="p-5 hero_image" :style="{
+          backgroundImage: 'url(/storage/' + post.image + ')'
+        }">
         <div class="container">
-          <img :src="'/storage/' + post.cover_image" :alt="post.title" />
-          <h1>{{ post.title }}</h1>
-          <p>
-            {{ post.content }}
-          </p>
-          <hr />
-          <div class="category" v-if="post.category">
-            <strong>Category: </strong> {{ post.category.name }}
-          </div>
-
-          <div class="tags" v-if="post.tags.length > 0">
-            <strong>Tags: </strong>
-            <ul>
-              <li v-for="tag in post.tags" :key="tag.id">
-                {{ tag.name }}
-              </li>
-            </ul>
-          </div>
-          <div class="no-tags" v-if="post.tags.lenght > 0">
-            <strong>Tags: </strong>
-            <ul>
-              <li>NO tags</li>
-            </ul>
+          <h1 class="display-3">{{ post.title }}</h1>
+          <p class="lead">{{ post.body}}</p>
+          <hr class="my-2 bg-white" />
+          <div class="row">
+            <div class="col">
+              <div class="author" v-if="post.user">
+                <strong>Author: </strong> {{ post.user.name }}
+              </div>
+            </div>
+            <div class="col" v-if="post.category">
+              <strong>Category: </strong> {{ post.category.name }}
+            </div>
+            <div class="col" v-if="post.tags.length > 0">
+              <strong>Tags: </strong>
+              <span v-for="tag in post.tags" :key="tag.id">
+                #{{ tag.name }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -45,15 +39,16 @@ export default {
   data() {
     return {
       post: "",
-      loading: true,
+      loading: false,
     };
   },
-  mounted() {
+  //Funzione created riachiama prima del mounted
+  created() {
     Axios.get("/api/posts/" + this.$route.params.slug)
       .then((response) => {
-        //console.log(response.data);
+        console.log(response.data);
         this.post = response.data;
-        this.loading = false;
+        this.loading = true;
       })
       .catch((e) => {
         console.log(e);
