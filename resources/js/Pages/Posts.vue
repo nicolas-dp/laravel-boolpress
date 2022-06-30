@@ -18,7 +18,7 @@
                     <h4>{{ post.title }}</h4>
                     <p v-if="post.content.length > 100">
                       {{ post.content.substring(0, 100) + "[...]" }}
-                      <a href="#">Read more</a>
+                      <router-link class="btn btn-primary" :to="{name: 'post',params: {slug: post.slug}}">Read More</router-link>
                     </p>
                     <p v-else>{{ post.content }}</p>
                   </div>
