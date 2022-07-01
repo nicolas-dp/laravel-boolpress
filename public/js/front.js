@@ -5255,6 +5255,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Post",
@@ -5269,14 +5271,16 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/posts/" + this.$route.params.slug).then(function (response) {
-      //console.log(response.data);
+      console.log(response.data);
+
       if (response.data.status_code === 404) {
         _this.$router.push({
-          name: 'not-found'
+          name: "not-found"
         });
 
         _this.loading = false;
       } else {
+        console.log(_this.post);
         _this.post = response.data;
         _this.loading = false;
       }
@@ -5298,6 +5302,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_WorkInProgress__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/WorkInProgress */ "./resources/js/components/WorkInProgress.vue");
+//
+//
 //
 //
 //
@@ -5402,6 +5408,13 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (e) {
         console.log(e);
       });
+    },
+    truncateString: function truncateString(str, num) {
+      if (str.length > num) {
+        return str.slice(0, num) + "...";
+      } else {
+        return str;
+      }
     }
   },
   mounted: function mounted() {
@@ -10568,7 +10581,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".card img[data-v-42344b0c] {\n  aspect-ratio: 1/1;\n}", ""]);
+exports.push([module.i, ".card img[data-v-42344b0c] {\n  aspect-ratio: 1/1;\n}\n.card-body[data-v-42344b0c] {\n  padding: 1rem;\n}", ""]);
 
 // exports
 
@@ -42661,7 +42674,9 @@ var render = function () {
             {
               staticClass: "p-5 hero_image",
               style: {
-                backgroundImage: "url(/storage/" + _vm.post.image + ")",
+                backgroundImage: "url(/storage/" + _vm.post.cover_image + ")",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
               },
             },
             [
@@ -42763,45 +42778,47 @@ var render = function () {
                 return _c("div", { key: post.id, staticClass: "col p-3" }, [
                   _c("div", { staticClass: "prodct card" }, [
                     _c("img", {
-                      attrs: {
-                        height: "200",
-                        src: post.cover_image,
-                        alt: post.title,
-                      },
+                      attrs: { src: post.cover_image, alt: post.title },
                     }),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-body d-flex flex-column" }, [
-                      _c("h4", [_vm._v(_vm._s(post.title))]),
-                      _vm._v(" "),
-                      post.content.length > 100
-                        ? _c(
-                            "p",
-                            [
+                    _c(
+                      "div",
+                      { staticClass: "card-body d-flex flex-column" },
+                      [
+                        _c("h4", [_vm._v(_vm._s(post.title))]),
+                        _vm._v(" "),
+                        post.content.length > 100
+                          ? _c("p", [
                               _vm._v(
                                 "\n                    " +
                                   _vm._s(
-                                    post.content.substring(0, 100) + "[...]"
+                                    _vm.truncateString(post.content, 100) +
+                                      "[...]"
                                   ) +
-                                  "\n                    "
+                                  "\n                  "
                               ),
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  attrs: {
-                                    to: {
-                                      name: "post",
-                                      params: { slug: post.slug },
-                                    },
-                                  },
-                                },
-                                [_vm._v("Read More")]
+                            ])
+                          : _c("p", [
+                              _vm._v(
+                                "\n                    " +
+                                  _vm._s(post.content) +
+                                  "\n                  "
                               ),
-                            ],
-                            1
-                          )
-                        : _c("p", [_vm._v(_vm._s(post.content))]),
-                    ]),
+                            ]),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: {
+                              to: { name: "post", params: { slug: post.slug } },
+                            },
+                          },
+                          [_vm._v("Read More")]
+                        ),
+                      ],
+                      1
+                    ),
                   ]),
                 ])
               }),

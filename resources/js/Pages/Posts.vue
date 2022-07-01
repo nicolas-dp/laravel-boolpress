@@ -12,18 +12,20 @@
                 :key="post.id"
               >
                 <div class="prodct card">
-                  <img height="200" :src="post.cover_image" :alt="post.title" />
-                  <div class="card-body d-flex flex-column" >
+                  <img :src="post.cover_image" :alt="post.title" />
+                  <div class="card-body d-flex flex-column">
                     <h4>{{ post.title }}</h4>
                     <p v-if="post.content.length > 100">
-                      {{ post.content.substring(0, 100) + "[...]" }}
-                      <router-link
-                        class="btn btn-primary"
-                        :to="{ name: 'post', params: { slug: post.slug } }"
-                        >Read More</router-link
-                      >
+                      {{ truncateString(post.content, 100) + "[...]" }}
                     </p>
-                    <p v-else>{{ post.content }}</p>
+                    <p v-else>
+                      {{post.content}}
+                    </p>
+                    <router-link
+                      class="btn btn-primary"
+                      :to="{ name: 'post', params: { slug: post.slug } }"
+                      >Read More</router-link
+                    >
                   </div>
                 </div>
               </div>
@@ -108,6 +110,14 @@ export default {
           console.log(e);
         });
     },
+
+    truncateString(str, num) {
+      if (str.length > num) {
+        return str.slice(0, num) + "...";
+      } else {
+        return str;
+      }
+    },
   },
 
   mounted() {
@@ -124,5 +134,10 @@ export default {
   img {
     aspect-ratio: 1 / 1;
   }
+}
+
+.card-body{
+  
+  padding: 1rem;
 }
 </style>

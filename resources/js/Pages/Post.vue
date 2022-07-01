@@ -4,7 +4,9 @@
       <div
         class="p-5 hero_image"
         :style="{
-          backgroundImage: 'url(/storage/' + post.image + ')',
+          backgroundImage: 'url(/storage/' + post.cover_image + ')',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
         }"
       >
         <div class="container">
@@ -49,11 +51,12 @@ export default {
   created() {
     Axios.get("/api/posts/" + this.$route.params.slug)
       .then((response) => {
-        //console.log(response.data);
+        console.log(response.data);
         if (response.data.status_code === 404) {
-          this.$router.push({ name: 'not-found'});
+          this.$router.push({ name: "not-found" });
           this.loading = false;
         } else {
+          console.log(this.post);
           this.post = response.data;
           this.loading = false;
         }
