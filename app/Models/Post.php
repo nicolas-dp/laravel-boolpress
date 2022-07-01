@@ -17,6 +17,15 @@ class Post extends Model
         return Str::slug($title, '-');
     }
     
+     /**
+     * Get the user that owns the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
     
     public function category(): BelongsTo
     {

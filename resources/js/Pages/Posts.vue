@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Posts</h1>
-    <work-in-progress></work-in-progress>
     <section class="posts">
       <div class="container">
         <div class="row">
@@ -14,7 +13,7 @@
               >
                 <div class="prodct card">
                   <img height="200" :src="post.cover_image" :alt="post.title" />
-                  <div class="card-body" style="height: 15rem">
+                  <div class="card-body d-flex flex-column" >
                     <h4>{{ post.title }}</h4>
                     <p v-if="post.content.length > 100">
                       {{ post.content.substring(0, 100) + "[...]" }}
@@ -91,7 +90,7 @@ export default {
       axios
         .get("api/categories")
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           this.categories = response.data;
         })
         .catch((e) => {
@@ -102,30 +101,12 @@ export default {
       axios
         .get("api/tags")
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           this.tags = response.data;
         })
         .catch((e) => {
           console.log(e);
         });
-    },
-
-    textTruncate(response) {
-      console.log(this.response);
-      //testocompleto = postsResponse.data.content;
-
-      //Se la stringa è più lunga di 20 caratteri la taglio e metto i puntini
-      /*  if (testocompleto.length > 20) {
-        anteprima = testocompleto.substr(0, 20) + "...";
-        console.log(anteprima);
-      }
-      //In caso contrario la stampo per intero
-      else {
-        anteprima = testocompleto;
-      }
-
-      //Stampo a video il risultato
-      document.write(anteprima); */
     },
   },
 

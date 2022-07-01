@@ -21,14 +21,14 @@
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" v-for="item in menu_items" :key="item.id">
-              <router-link class="nav-link" :to="{ name: item.route_name }">{{ item.route_text }}</router-link>
+              <router-link class="nav-link" :to="{ name: item.route_name }">{{
+                item.route_text
+              }}</router-link>
             </li>
           </ul>
 
           <!-- Right Side Of Navbar -->
-          <ul class="navbar-nav ms-auto">
-
-          </ul>
+          <ul class="navbar-nav ms-auto"></ul>
         </div>
       </div>
     </nav>
@@ -63,4 +63,7 @@ export default {
 </script>
 
 <style>
+main {
+  height: 100vh;
+}
 </style>
